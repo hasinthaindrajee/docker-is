@@ -1,6 +1,6 @@
 #!/bin/sh
 # ------------------------------------------------------------------------
-# Copyright 2018 WSO2, Inc. (http://wso2.com)
+# Copyright 2020 WSO2, Inc. (http://wso2.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,6 +31,11 @@ test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" 
 test -d ${config_volume} && [ "$(ls -A ${config_volume})" ] && cp -RL ${config_volume}/* ${WSO2_SERVER_HOME}/
 # copy any artifact changes mounted to artifact_volume
 test -d ${artifact_volume} && [ "$(ls -A ${artifact_volume})" ] && cp -RL ${artifact_volume}/* ${WSO2_SERVER_HOME}/
+
+# retrieve keystore password from Secret Manager
+ROOT_KEY_NAME=${ROOT_KEY_NAME:-keystorePass}
+REGION=${REGION:-us-east-1}
+${WORKING_DIRECTORY}/initializer ${ROOT_KEY_NAME} ${REGION} ${WSO2_SERVER_HOME}/
 
 # start WSO2 Carbon server
 sh ${WSO2_SERVER_HOME}/bin/wso2server.sh "$@"

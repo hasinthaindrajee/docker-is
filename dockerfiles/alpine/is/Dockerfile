@@ -1,3 +1,4 @@
+# syntax = docker/dockerfile:1.0-experimental
 # ------------------------------------------------------------------------
 #
 # Copyright 2018 WSO2, Inc. (http://wso2.com)
@@ -29,7 +30,7 @@ ARG USER_GROUP_ID=802
 ARG USER_HOME=/home/${USER}
 # build arguments for WSO2 product installation
 ARG WSO2_SERVER_NAME=wso2is
-ARG WSO2_SERVER_VERSION=5.10.0
+ARG WSO2_SERVER_VERSION=5.11.0-m8
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
@@ -74,11 +75,50 @@ RUN \
     && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
     && rm -f ${WSO2_SERVER}.zip
 
-# add libraries for Kubernetes membership scheme based clustering
-ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/${DNS_JAVA_VERSION}/dnsjava-${DNS_JAVA_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/lib
-ADD --chown=wso2carbon:wso2 http://maven.wso2.org/nexus/content/repositories/releases/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/${K8S_MEMBERSHIP_SCHEME_VERSION}/kubernetes-membership-scheme-${K8S_MEMBERSHIP_SCHEME_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins
-# add MySQL JDBC connector to server home as a third party library
-ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins/
+RUN apk update \
+ && apk add jq \
+ && rm -rf /var/cache/apk/* \
+ && apk add wget \
+ && rm -rf /var/cache/apk/*
+
+# copy initializer binary to user home
+COPY --chown=wso2carbon:wso2 initializer ${USER_HOME}/
+
+# read artifact.json file and copy/remove artifacts based on the content.
+COPY --chown=wso2carbon:wso2 artifacts.json .
+RUN \
+--mount=type=secret,id=GIT_TOKEN GIT_TOKEN=$(cat /run/secrets/GIT_TOKEN); \
+jq -c '.[]' artifacts.json | while read i; do \
+echo i; \
+action=$(echo $i | jq -r '.action'); \
+artifact_location=$(echo $i | jq -r '.artifact_location'); \
+full_artifact_name=$(echo $i | jq -r '.full_artifact_name'); \
+copy_destination=$(echo $i | jq -r '.copy_destination'); \
+artifact_repo=$(echo $i | jq -r '.artifact_repo'); \
+if [ $action = "remove" ] ; then \
+    echo Removing artifact ${WSO2_SERVER_HOME}$artifact_location; \
+    rm -rf ${WSO2_SERVER_HOME}$artifact_location; \
+    echo Removing finished; \
+else \
+    if [ $artifact_repo = "github" ] ; then \
+        echo Downloading $full_artifact_name; \
+        wget --auth-no-challenge --header='Accept:application/octet-stream' https://$GIT_TOKEN:@api.github.com/repos/$artifact_location -O ${WSO2_SERVER_HOME}$copy_destination$full_artifact_name; \
+        chown wso2carbon:wso2 ${WSO2_SERVER_HOME}$copy_destination$full_artifact_name; \
+    else \
+        echo Downloading from external artifact_location $full_artifact_name; \
+        wget $artifact_location -O ${WSO2_SERVER_HOME}$copy_destination$full_artifact_name; \
+        chown wso2carbon:wso2 ${WSO2_SERVER_HOME}$copy_destination$full_artifact_name; \
+    fi ; \
+    extract=$(echo $i | jq -r '.extract'); \
+    if [ $extract = "true" ] ; then \
+        extracted_filename=${full_artifact_name%.*} ; \
+        echo extracting as ${WSO2_SERVER_HOME}$copy_destination$extracted_filename; \
+        unzip -d ${WSO2_SERVER_HOME}$copy_destination$extracted_filename  ${WSO2_SERVER_HOME}$copy_destination$full_artifact_name; \
+        chown -R wso2carbon:wso2 ${WSO2_SERVER_HOME}$copy_destination$extracted_filename; \
+        rm -r ${WSO2_SERVER_HOME}$copy_destination$full_artifact_name; \
+    fi ; \
+fi ; \
+done;
 
 # set the user and work directory
 USER ${USER_ID}

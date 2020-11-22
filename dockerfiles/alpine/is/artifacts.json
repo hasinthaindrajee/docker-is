@@ -1,0 +1,201 @@
+[
+  {
+    "action": "remove",
+    "artifact_location": "/repository/deployment/server/webapps/accountrecoveryendpoint"
+  },
+  {
+    "action": "remove",
+    "artifact_location": "/repository/deployment/server/webapps/authenticationendpoint"
+  },
+  {
+    "action": "remove",
+    "artifact_location": "/repository/deployment/server/webapps/emailotpauthenticationendpoint"
+  },
+  {
+    "action": "remove",
+    "artifact_location": "/repository/deployment/server/webapps/myaccount"
+  },
+  {
+    "action": "remove",
+    "artifact_location": "/repository/deployment/server/webapps/console"
+  },
+  {
+    "action": "remove",
+    "artifact_location": "/repository/deployment/server/webapps/smsotpauthenticationendpoint"
+  },
+  {
+    "action": "remove",
+    "artifact_location": "/repository/deployment/server/webapps/totpauthenticationendpoint"
+  },
+  {
+    "action": "remove",
+    "artifact_location": "/repository/deployment/server/webapps/x509certificateauthenticationendpoint"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-app-extensions/releases/assets/26909495",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "myaccount.war",
+    "release_version": "v0.0.66",
+    "extract" : "true",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-app-extensions/releases/assets/26909496",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "authenticationendpoint.war",
+    "release_version": "v0.0.66",
+    "extract" : "true",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-app-extensions/releases/assets/26909498",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "emailotpauthenticationendpoint.war",
+    "release_version": "v0.0.66",
+    "extract" : "true",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-app-extensions/releases/assets/26909499",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "accountrecoveryendpoint.war",
+    "release_version": "v0.0.66",
+    "extract" : "true",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-app-extensions/releases/assets/26909500",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "smsotpauthenticationendpoint.war",
+    "release_version": "v0.0.66",
+    "extract" : "true",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-app-extensions/releases/assets/26909501",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "totpauthenticationendpoint.war",
+    "release_version": "v0.0.66",
+    "extract" : "true",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-app-extensions/releases/assets/26909503",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "x509certificateauthenticationendpoint.war",
+    "release_version": "v0.0.66",
+    "extract" : "true",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-app-extensions/releases/assets/26909494",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "console.war",
+    "release_version": "v0.0.66",
+    "extract" : "true",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-user-store-agent/releases/assets/26651298",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "api#cloud#v1#onprem#userstore.war",
+    "release_version": "v4.0.21",
+    "extract" : "true",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-user-store-agent/releases/assets/26651299",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "api#cloud#v1#userstore#agent.war",
+    "release_version": "v4.0.21",
+    "extract" : "true",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-user-store-agent/releases/assets/26651294",
+    "copy_destination": "/repository/components/dropins/",
+    "full_artifact_name": "org.wso2.carbon.identity.user.store.claim.listener-4.0.21.jar",
+    "release_version": "v4.0.21",
+    "extract" : "false",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-user-store-agent/releases/assets/26651293",
+    "copy_destination": "/repository/components/dropins/",
+    "full_artifact_name": "org.wso2.carbon.identity.user.store.common-4.0.21.jar",
+    "release_version": "v4.0.21",
+    "extract" : "false",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "wso2-enterprise/asgardio-user-store-agent/releases/assets/26651290",
+    "copy_destination": "/repository/components/dropins/",
+    "full_artifact_name": "org.wso2.carbon.identity.user.store.outbound-4.0.21.jar",
+    "release_version": "v4.0.21",
+    "extract" : "false",
+    "artifact_repo" : "github"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "https://repo1.maven.org/maven2/org/apache/activemq/activemq-core/5.7.0/activemq-core-5.7.0.jar",
+    "copy_destination": "/repository/components/lib/",
+    "full_artifact_name": "activemq-core-5.7.0.jar",
+    "release_version": "v5.7.0"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "https://repo1.maven.org/maven2/org/apache/activemq/activemq-client/5.10.0/activemq-client-5.10.0.jar",
+    "copy_destination": "/repository/components/lib/",
+    "full_artifact_name": "activemq-client-5.10.0.jar",
+    "release_version": "v5.10.0"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "https://maven.wso2.org/nexus/content/repositories/public/org/wso2/carbon/identity/media/org.wso2.carbon.identity.media.endpoint/2.0.12/org.wso2.carbon.identity.media.endpoint-2.0.12.war",
+    "copy_destination": "/repository/deployment/server/webapps/",
+    "full_artifact_name": "api#identity#media#v1.0.war",
+    "release_version": "v2.0.12",
+    "extract" : "true"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "https://maven.wso2.org/nexus/content/repositories/public/org/wso2/carbon/identity/media/org.wso2.carbon.identity.media.core/2.0.12/org.wso2.carbon.identity.media.core-2.0.12.jar",
+    "copy_destination": "/repository/components/dropins/",
+    "full_artifact_name": "org.wso2.carbon.identity.media.core-2.0.12.jar",
+    "release_version": "v2.0.12"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "https://repo1.maven.org/maven2/dnsjava/dnsjava/2.1.8/dnsjava-2.1.8.jar",
+    "copy_destination": "/repository/components/lib/",
+    "full_artifact_name": "dnsjava-2.1.8.jar",
+    "release_version": "v2.1.8"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "https://maven.wso2.org/nexus/content/repositories/releases/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/1.0.7/kubernetes-membership-scheme-1.0.7.jar",
+    "copy_destination": "/repository/components/dropins/",
+    "full_artifact_name": "kubernetes-membership-scheme-1.0.7.jar",
+    "release_version": "v1.0.7"
+  },
+  {
+    "action": "copy",
+    "artifact_location": "https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.17/mysql-connector-java-8.0.17.jar",
+    "copy_destination": "/repository/components/dropins/",
+    "full_artifact_name": "mysql-connector-java-8.0.17.jar",
+    "release_version": "v8.0.17"
+  }
+]
